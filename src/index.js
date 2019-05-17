@@ -9,14 +9,39 @@ import { Provider } from 'react-redux';
 import logger from 'redux-logger';
 // Import saga middleware
 import createSagaMiddleware from 'redux-saga';
+import axios from 'axios';
+import { takeEvery, put } from 'redux-saga/effects';
 
-// Create the rootSaga generator function
-function* rootSaga() {
-
-}
 
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
+
+function* fetchImages(action) {
+    //triggers our GET and then sending to image reducer and redux
+    console.log('in fetchImages');
+    try{
+        let imageResponse = yield axios.get('/api/images');
+        yield put ({type: 'SET_IMAGES', payload: imageResponse.data})
+    } catch(error) {
+        console.log('error in get images: ', error)
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Used to store images returned from the server
 const images = (state = [], action) => {
@@ -47,6 +72,11 @@ const storeInstance = createStore(
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),
 );
+
+// Create the rootSaga generator function
+function* rootSaga() {
+    yield takeEvery('FETCH_IMAGES', fetchImages);
+}
 
 // Pass rootSaga into our sagaMiddleware
 sagaMiddleware.run(rootSaga);

@@ -24,3 +24,5 @@ VALUES
 ('Inspirational'),
 ('Frantic'),
 ('Vertigo');
+
+Database named 'saga_weekend'

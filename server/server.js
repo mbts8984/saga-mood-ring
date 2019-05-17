@@ -10,7 +10,13 @@ app.use(express.static('build'));
 /** ---------- ROUTES ---------- **/
 
 
+// Routes
+const imagesRouter = require('./Routes/images.router');
+//app.use('/api/tags', tagsRouter);
+app.use('/api/images', imagesRouter);
+
 /** ---------- START SERVER ---------- **/
 app.listen(port, function () {
     console.log('Listening on port: ', port);
 });
+
