@@ -22,13 +22,15 @@ class Tags extends Component {
         this.setState({
             tagId: event.target.value
         })
+        this.props.dispatch({type: 'ADD_TAG', payload: this.state})
+        this.props.dispatch({type: 'SET_TAG_FOR_DISPLAY', payload:this.state.tagId})
     }
 
     render() {
         return (
             <>
             <select value={this.state.tagId} onChange={this.handleTagChange}>
-                <option disabled value="0">How Does This Image Make You Feel?</option>
+                <option disabled value="0">This Image Makes Me Feel: </option>
                 {/* <option>Select</option> */}
                 {this.props.reduxState.tags.map(tag => {
                     return (
