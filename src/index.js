@@ -45,14 +45,18 @@ function* addTagSaga(action) {
     console.log('in addTagSaga with data LOOK HERE YO:', action.payload);
     try{
         yield axios.post('/api/images/addtag', action.payload)
+        yield put({ type: 'SET_TAG_FOR_DISPLAY'})
     }catch(error){
         console.log('error in post: ', error)
     }
 }
 
 function* displayTagSaga(action) {
-    console.log('in displayTagSage with tagId: ', action.payload);
-    yield put({type: 'DISPLAY_TAG', payload: action.payload})
+    const displaysToRender = axios.get('/api/imagetag')
+    yield put({type: 'DISPLAY_TAG',
+               payload: displaysToRender.data
+            })  
+    console.log('in displayTagSage with tag and imageid: ', displaysToRender.data);
 }
 
 
@@ -60,7 +64,7 @@ function* displayTagSaga(action) {
 const displayTagReducer = (state = [], action) => {
     switch (action.type) {
         case 'DISPLAY_TAG':
-            return action.payload
+            return action.payload;
         default:
             return state;
     }

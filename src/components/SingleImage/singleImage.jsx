@@ -27,7 +27,7 @@ class SingleImage extends Component {
             imageId: this.props.image.id
         })
         this.props.dispatch({ type: 'ADD_TAG', payload: this.state })
-        this.props.dispatch({ type: 'SET_TAG_FOR_DISPLAY', payload: this.state.tagId  })
+       // this.props.dispatch({ type: 'SET_TAG_FOR_DISPLAY'})
     }
 
     render(){
