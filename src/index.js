@@ -29,7 +29,7 @@ function* fetchImages(action) {
     }
 }
 
-function* fetchTags() {
+function* fetchTagSaga() {
     const allTheTags = yield axios.get('/api/tags')
     yield put({
         type: 'SET_TAGS',
@@ -48,7 +48,7 @@ function* addTagSaga(action) {
 }
 
 
-
+// GET IMAGES REDUCER
 // Used to store images returned from the server
 const images = (state = [], action) => {
     switch (action.type) {
@@ -59,6 +59,7 @@ const images = (state = [], action) => {
     }
 }
 
+//TAGS REDUCER
 // Used to store the images tags (e.g. 'Inspirational', 'Calming', 'Energy', etc.)
 const tags = (state = [], action) => {
     switch (action.type) {
@@ -83,7 +84,7 @@ const storeInstance = createStore(
 function* rootSaga() {
     yield takeEvery('FETCH_IMAGES', fetchImages);
     yield takeEvery('ADD_TAG', addTagSaga);
-    yield takeEvery('SET_TAGS', fetchTags);
+    yield takeEvery('FETCH_TAGS', fetchTagSaga);
 }
 
 // Pass rootSaga into our sagaMiddleware

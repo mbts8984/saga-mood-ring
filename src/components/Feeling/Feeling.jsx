@@ -13,12 +13,11 @@ import './feeling.css';
 // import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 // import Input from '@material-ui/core/Input';
 import { Button } from '@material-ui/core';
+import SingleImage from '../SingleImage/singleImage.jsx';
+import Tags from '../Tags/Tags.jsx';
 
 
-state = {
-    image_id: '',
-    tag_id: ''
-}
+
 // const styles = theme => ({
 //     card: {
 //         maxWidth: 600,
@@ -34,36 +33,62 @@ state = {
 
 
 class Feeling extends Component {
+
+    state = {
+        index: 0
+    }
+
+
+    handleSubmit = (event) => {
+        console.log('in handleSubmit');
+        
+    }
+
+    handleIncrease = (event) => {
+        console.log('in handleIncrease');
+        
+    }
+
+    handleDecrease = (event) => {
+        console.log('in handleDecrease')
+    }
+
     render(){
+        console.log('LOOK HERE FOR TAGS STUFF: ', this.props.reduxState.tags);
+        let index= this.state.index
       return(
           <div>
           <h2>Images Here:</h2>
-          
-              <h2>How's THIS Make You Feel?!</h2>
-              {this.props.reduxState.images.map(image => {
+              <Button onClick={this.handleDecrease} variant="contained" color="primary">Previous Image</Button>
+              {this.props.reduxState.images.map((image, i) => {
+                  if(image.id-1 === index){
                   return (
-                      <div className="imageDiv">
-                      <Button variant="contained" color="primary">Backward</Button>
-                      <img key={image.id} src={image.path} alt={image.title} className="feelingImg" />
-                      <select name="tag" id="">
-                          <option selected disabled>How Does This Image Make You Feel?</option>
-
-                          {this.props.fetchTags}
-                     </select>
-                      <Button variant="contained" color="primary">Forward</Button>
-                      </div>
-                      )
-              })}
-          </div>
+                      <SingleImage key={i} image={image}/>
+                  )}}
+              )}
+             
+              <Tags/>
+              <>
+              <Button onClick={this.handleIncrease} variant="contained" color="primary">Forward</Button>
+              </>
+          </div>  
+           
       )}
-    }  
-//         {this.props.reduxState.images.map(image => {
-//         return (
-//             <div>
-//             <Card className="image">
+    }        
 
-//                 <CardMedia
-//                     image="Image path"
+          
+      
+      
+
+{/* <img key={image.id} src={image.path} alt={image.title} className="feelingImg" /> */ }
+
+
+{/* //         {this.props.reduxState.images.map(image => { */}
+{/* //         return (
+//             <div>
+//             <Card className="image"> */}
+  {/* <CardMedia */}
+{/* //                     image="Image path"
 //                     title="IMAGE PATH"
 //                 />
 //                 <Input placeholder="Test"></Input>
@@ -80,7 +105,7 @@ class Feeling extends Component {
 //         ));
         
 //     })
-//   }}
+//   }} */}
 
 
 
