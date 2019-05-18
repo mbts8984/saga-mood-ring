@@ -14,6 +14,11 @@ import './feeling.css';
 // import Input from '@material-ui/core/Input';
 import { Button } from '@material-ui/core';
 
+
+state = {
+    image_id: '',
+    tag_id: ''
+}
 // const styles = theme => ({
 //     card: {
 //         maxWidth: 600,
@@ -40,6 +45,11 @@ class Feeling extends Component {
                       <div className="imageDiv">
                       <Button variant="contained" color="primary">Backward</Button>
                       <img key={image.id} src={image.path} alt={image.title} className="feelingImg" />
+                      <select name="tag" id="">
+                          <option selected disabled>How Does This Image Make You Feel?</option>
+
+                          {this.props.fetchTags}
+                     </select>
                       <Button variant="contained" color="primary">Forward</Button>
                       </div>
                       )

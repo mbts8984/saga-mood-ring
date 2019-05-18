@@ -11,9 +11,11 @@ app.use(express.static('build'));
 
 
 // Routes
-const imagesRouter = require('./Routes/images.router');
+const imagesRouter = require('./Routes/images.router.js');
+const tagRouter = require('./Routes/tags.router.js');
 //app.use('/api/tags', tagsRouter);
 app.use('/api/images', imagesRouter);
+app.use('/api/tags', tagRouter)
 
 /** ---------- START SERVER ---------- **/
 app.listen(port, function () {
