@@ -1,0 +1,9 @@
+.feelingImg {
+    max-width: 50%;
+    display: inline-block;
+}
+
+.imageDiv {
+    display: inline-block;
+    height: 350px;
+}
