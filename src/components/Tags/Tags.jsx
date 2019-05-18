@@ -5,20 +5,34 @@ import {Button} from '@material-ui/core';
 
 class Tags extends Component {
 
-    handleSubmit = (event) => {
-        console.log('in handleSubmit');
+    state = {
+        tagId: 0
+    }
 
+    handleTagChange = (event) => {
+        
+        this.setState({
+            tagId: event.target.value
+        })
+        console.log('in handleTagChange with ID:', event.target.value);
+    }
+
+    handleSubmit = (event) => {
+        console.log('in handleSubmit with tagID: ', this.state.tagId);
+        this.setState({
+            tagId: event.target.value
+        })
     }
 
     render() {
         return (
             <>
-            <select name="tag" id="">
-                {/* <option selected disabled>How Does This Image Make You Feel?</option> */}
-                <option>Select</option>
-                {this.props.reduxState.tags.map(oneEmotion => {
+            <select value={this.state.tagId} onChange={this.handleTagChange}>
+                <option disabled value="0">How Does This Image Make You Feel?</option>
+                {/* <option>Select</option> */}
+                {this.props.reduxState.tags.map(tag => {
                     return (
-                        <option key={oneEmotion.id} value={oneEmotion.id}>{oneEmotion.name}</option>
+                        <option key={tag.id} value={tag.id}>{tag.name}</option>
                     )
                 })}
             </select>
