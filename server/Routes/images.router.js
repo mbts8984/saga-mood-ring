@@ -16,11 +16,11 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
     const queryText = `
-    INSERT INTO "images_tag"( "tag_id")
-    VALUES($1);
+    INSERT INTO "images_tag"( "tag_id", "image_id")
+    VALUES($1, $2);
   `
     console.log('HERE BE THE BODY', req.body.tagId);
-    pool.query(queryText, [req.body.tagId])
+    pool.query(queryText, [req.body.tagId, req.body.imageId])
         .then((result) => {
             console.log('Response from POST tag route:', result);
             res.sendStatus(201);

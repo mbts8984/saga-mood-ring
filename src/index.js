@@ -42,7 +42,7 @@ function* fetchTagSaga() {
 
 function* addTagSaga(action) {
     //triggers our POST to DB
-    console.log('in addTagSaga with data:', action.payload);
+    console.log('in addTagSaga with data LOOK HERE YO:', action.payload);
     try{
         yield axios.post('/api/images/addtag', action.payload)
     }catch(error){

@@ -14,7 +14,7 @@ import './feeling.css';
 // import Input from '@material-ui/core/Input';
 import { Button } from '@material-ui/core';
 import SingleImage from '../SingleImage/singleImage.jsx';
-import Tags from '../Tags/Tags.jsx';
+//import Tags from '../Tags/Tags.jsx';
 
 
 
@@ -72,9 +72,9 @@ class Feeling extends Component {
     }
 
     render(){
-        console.log('Here is the image array you asked for: ', this.props.reduxState.images);
+       // console.log('Here is the image array you asked for: ', this.props.reduxState.images);
         
-        console.log('LOOK HERE FOR TAGS STUFF: ', this.props.reduxState.tags);
+       // console.log('LOOK HERE FOR TAGS STUFF: ', this.props.reduxState.tags);
         let index= this.state.index
       return(
           <div className="imageDiv">
@@ -87,7 +87,7 @@ class Feeling extends Component {
                   )}}
               )}
              
-              <Tags/>
+              {/* <Tags/> */}
               <>
               <Button onClick={this.handleIncrease} variant="contained" color="primary">Forward</Button>
               </>
