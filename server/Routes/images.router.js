@@ -14,5 +14,21 @@ router.get('/', (req, res) => {
     })
 })
 
+router.post('/', (req, res) => {
+    const queryText = `
+    INSERT INTO "images_tag"( "tag_id")
+    VALUES($1);
+  `
+    console.log('HERE BE THE BODY', req.body.tagId);
+    pool.query(queryText, [req.body.tagId])
+        .then((result) => {
+            console.log('Response from POST tag route:', result);
+            res.sendStatus(201);
+        }).catch((error) => {
+            console.log('Error in POST tag route:', error);
+            res.sendStatus(500);
+        })
+});
+
 
 module.exports = router;

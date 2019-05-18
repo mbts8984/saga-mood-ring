@@ -17,6 +17,9 @@ import { takeEvery, put } from 'redux-saga/effects';
 const sagaMiddleware = createSagaMiddleware();
 
 
+//SAGAS
+
+
 
 function* fetchImages(action) {
     //triggers our GET and then sending to image reducer and redux
@@ -39,14 +42,29 @@ function* fetchTagSaga() {
 
 function* addTagSaga(action) {
     //triggers our POST to DB
-    console.log('in addTagSaga');
+    console.log('in addTagSaga with data:', action.payload);
     try{
-        yield axios.post('/api/tags', action.payload.image_id, action.payload.tag_id)
+        yield axios.post('/api/images/addtag', action.payload)
     }catch(error){
         console.log('error in post: ', error)
     }
 }
 
+function* displayTagSaga(action) {
+    console.log('in displayTagSage with tagId: ', action.payload);
+    yield put({type: 'DISPLAY_TAG', payload: action.payload})
+}
+
+
+// REDUCERS
+const displayTagReducer = (state = [], action) => {
+    switch (action.type) {
+        case 'DISPLAY_TAG':
+            return action.payload
+        default:
+            return state;
+    }
+}
 
 // GET IMAGES REDUCER
 // Used to store images returned from the server
@@ -75,6 +93,7 @@ const storeInstance = createStore(
     combineReducers({
         images,
         tags,
+        displayTagReducer
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),
@@ -85,6 +104,7 @@ function* rootSaga() {
     yield takeEvery('FETCH_IMAGES', fetchImages);
     yield takeEvery('ADD_TAG', addTagSaga);
     yield takeEvery('FETCH_TAGS', fetchTagSaga);
+    yield takeEvery('SET_TAG_FOR_DISPLAY', displayTagSaga)
 }
 
 // Pass rootSaga into our sagaMiddleware
