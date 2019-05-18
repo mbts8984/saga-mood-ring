@@ -14,11 +14,11 @@ class Tags extends Component {
         return (
             <>
             <select name="tag" id="">
-                <option selected disabled>How Does This Image Make You Feel?</option>
-
+                {/* <option selected disabled>How Does This Image Make You Feel?</option> */}
+                <option>Select</option>
                 {this.props.reduxState.tags.map(oneEmotion => {
                     return (
-                        <option value={oneEmotion.id}>{oneEmotion.name}</option>
+                        <option key={oneEmotion.id} value={oneEmotion.id}>{oneEmotion.name}</option>
                     )
                 })}
             </select>
