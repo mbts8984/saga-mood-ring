@@ -4,6 +4,12 @@ import {Button} from '@material-ui/core';
 
 
 class Tags extends Component {
+
+    handleSubmit = (event) => {
+        console.log('in handleSubmit');
+
+    }
+
     render() {
         return (
             <>
