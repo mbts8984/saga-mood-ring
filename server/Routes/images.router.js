@@ -2,8 +2,12 @@ const express = require('express');
 const pool = require('../modules/pool.js');
 const router = express.Router();
 
+
+// get all the images 
 router.get('/', (req, res) => {
-    let query = 'SELECT * FROM "images";';
+    let query = `SELECT "images".id, "images".title, "images".path, array_agg("images_tag".tag_id) as tags FROM "images"
+                 FULL JOIN "images_tag" ON "images_tag".image_id = "images".id
+                 GROUP BY "images".id ORDER BY "images".id;`
     pool.query(query)
     .then( (results) => {
         console.log('GET from images router with results: ', results);
@@ -14,6 +18,7 @@ router.get('/', (req, res) => {
     })
 })
 
+//post category tags to router
 router.post('/', (req, res) => {
     const queryText = `
     INSERT INTO "images_tag"( "tag_id", "image_id")
