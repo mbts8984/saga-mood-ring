@@ -1,35 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './feeling.css';
-// import PropTypes from 'prop-types';
-// import { withStyles } from '@material-ui/core/styles';
-// import classnames from 'classnames';
-// import Card from '@material-ui/core/Card';
-// import CardMedia from '@material-ui/core/CardMedia';
-// import CardActions from '@material-ui/core/CardActions';
-// import IconButton from '@material-ui/core/IconButton';
-// import red from '@material-ui/core/colors/red';
-// import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-// import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-// import Input from '@material-ui/core/Input';
 import { Button } from '@material-ui/core';
 import SingleImage from '../SingleImage/singleImage.jsx';
 //import Tags from '../Tags/Tags.jsx';
-
-
-
-// const styles = theme => ({
-//     card: {
-//         maxWidth: 600,
-//     },
-//     media: {
-//         height: 0,
-//         paddingTop: '56.25%', // 16:9
-//     },
-//     actions: {
-//         display: 'flex',
-//     }
-// });
 
 
 class Feeling extends Component {
