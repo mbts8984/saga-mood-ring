@@ -6,10 +6,22 @@ import './singleImage.css';
 
 class SingleImage extends Component {
 
+
     state = {
         tagId: 0,
         imageId: ''
     }
+
+    componentDidMount() {
+        this.setState({
+            imageId: this.props.image.id
+        })
+        //this.getTheThing();
+    }
+
+    // getTheThing = (event) => {
+    //     this.props.dispatch({ type: 'SET_TAG_FOR_DISPLAY', payload: this.state.imageId });
+    // }
 
     handleTagChange = (event) => {
 
@@ -27,10 +39,13 @@ class SingleImage extends Component {
             imageId: this.props.image.id
         })
         this.props.dispatch({ type: 'ADD_TAG', payload: this.state })
-       // this.props.dispatch({ type: 'SET_TAG_FOR_DISPLAY'})
+        //let url = `/api/imagetag/${this.state.imageId}`
+        this.props.dispatch({ type: 'SET_TAG_FOR_DISPLAY', payload: this.state });
     }
 
     render(){
+        console.log('LOOK HERE FOR RENDERING BUSINESS: ', this.state.imageId)
+        console.log('IMAGE ID', this.state.imageId)
         return (
             <>
             <img src={this.props.image.path} className="singleImage" alt={this.props.image.title}/>
@@ -44,7 +59,20 @@ class SingleImage extends Component {
                 })}
             </select>
             <Button onClick={this.handleSubmit} variant="contained" color="secondary"> Add My Feeling </Button>
+            <ul>
+                    {this.props.reduxState.newTagToShow.map(picId => {
+                        if(picId.id === this.state.imageId){
+                            return(
+                                <li>{this.picId.tags}</li>
+                            )
+                        }
+                    })}
+            </ul>
+            
+            
+            <li>{this.props.image.tags}</li>
             </>
+            
         )
     }
 }

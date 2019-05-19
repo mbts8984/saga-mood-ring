@@ -6,12 +6,16 @@ const router = express.Router();
 
 
 router.get('/', (req, res) => {
-    let query = `SELECT "tags".name, "images_tag".image_id FROM "tags" 
+    let query = `SELECT "tags".name, "tags".id FROM "tags"
                 JOIN "images_tag" ON "images_tag".tag_id = "tags".id
-                JOIN "images" ON "images".id = "images_tag".image_id;`;
-    pool.query(query)
+                WHERE "images_tag".image_id = $1;`;
+    console.log('req.params is: ', req.params);
+    console.log('req.body is: ', req.body);
+    console.log('req.query is: ', req.query);
+    let imageId = req.query.imageId;
+    pool.query(query, [imageId])
         .then((results) => {
-            console.log('GET from DISPLAY Tags with results: ', results);
+            console.log('GET from DISPLAY Tags with results: ', results.rows);
             res.send(results.rows);
         }).catch((error) => {
             console.log('error in GET  Display in tags router: ', error);

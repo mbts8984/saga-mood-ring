@@ -12,6 +12,12 @@ class Feeling extends Component {
         index: 0
     }
 
+    componentDidMount() {
+        this.props.dispatch({ type: 'FETCH_IMAGES' })
+        this.props.dispatch({ type: 'FETCH_TAGS' })
+    }
+    
+
     //if the original index state is 0 and the original index in the images array -1 is 0, show the first image
     // if the the state's index is not 0, increase the index value by 1 for each click
     handleIncrease = (event) => {

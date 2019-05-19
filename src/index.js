@@ -40,34 +40,59 @@ function* fetchTagSaga() {
     })
 }; //end fetchTags
 
+// addTagSaga - add tagId and imageId to the junction table DB
 function* addTagSaga(action) {
     //triggers our POST to DB
     console.log('in addTagSaga with data LOOK HERE YO:', action.payload);
     try{
         yield axios.post('/api/images/addtag', action.payload)
-        yield put({ type: 'SET_TAG_FOR_DISPLAY'})
+        yield put({ type: 'FETCH_IMAGES'})
     }catch(error){
         console.log('error in post: ', error)
     }
 }
 
 function* displayTagSaga(action) {
-    const displaysToRender = axios.get('/api/imagetag')
-    yield put({type: 'DISPLAY_TAG',
-               payload: displaysToRender.data
-            })  
-    console.log('in displayTagSage with tag and imageid: ', displaysToRender.data);
+    console.log('YO YO YO', action.payload);
+    try {
+        const displaysToRender = axios.get(`/api/imagetag?imageId=${action.payload.imageId}`)
+        console.log('DISPLAYS TO RENDER BE HERE ', displaysToRender.data)
+        yield put({
+            type: 'NEW_TAG_TO_SHOW',
+            payload: displaysToRender.data
+        })
+        console.log('in displayTagSaga with tag and imageid: ', displaysToRender.data);
+    }catch(error){
+        console.log('STUPID EFFING ERROR HERE GUYS: ', error)
+    }
+    // const displaysToRender = axios.get(`/api/imagetag?imageId=${action.payload.imageId}`)
+    // console.log('DISPLAYS TO RENDER BE HERE ', displaysToRender.data)
+    // yield put({type: 'NEW_TAG_TO_SHOW', payload:  displaysToRender.data})  
+    // console.log('in displayTagSaga with tag and imageid: ', displaysToRender.data);
 }
 
 
-// REDUCERS
-const displayTagReducer = (state = [], action) => {
+//REDUCERS
+const displayTagReducer = (state=[], action) => {
+    console.log('BOOKS BOOKS BOOKS ',action.payload);
+    
     switch (action.type) {
         case 'DISPLAY_TAG':
             return action.payload;
         default:
             return state;
     }
+}
+
+const newTagToShow = (state = [], action) => {
+    //console.log('in NewTagToShow', action.payload)
+    switch(action.type) {
+        case 'NEW_TAG_TO_SHOW':
+            console.log('in New_tag_to_show: ',action.payload)
+            return action.payload;
+        default:
+            return state
+    }   
 }
 
 // GET IMAGES REDUCER
@@ -97,7 +122,8 @@ const storeInstance = createStore(
     combineReducers({
         images,
         tags,
-        displayTagReducer
+        displayTagReducer,
+        newTagToShow
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),

@@ -6,10 +6,7 @@ import { connect } from 'react-redux';
 class App extends Component {
   // Renders the entire app on the DOM
   
-  componentDidMount() {
-    this.props.dispatch({type: 'FETCH_IMAGES'})
-    this.props.dispatch({type: 'FETCH_TAGS'})
-  }
+
   
   
   
