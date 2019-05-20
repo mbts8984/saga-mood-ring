@@ -8,7 +8,7 @@ class SingleImage extends Component {
 
 
     state = {
-        tagId: 0,
+        tagId: this.props.image.id,
         imageId: ''
     }
 
@@ -26,6 +26,7 @@ class SingleImage extends Component {
     handleTagChange = (event) => {
 
         this.setState({
+            ...this.state,
             tagId: event.target.value,
             imageId: this.props.image.id
         })
@@ -35,6 +36,7 @@ class SingleImage extends Component {
     handleSubmit = (event) => {
         console.log('in handleSubmit with tagID: ', this.state.tagId, this.props.image.id);
         this.setState({
+            ...this.state,
             tagId: event.target.value,
             imageId: this.props.image.id
         })
@@ -44,6 +46,7 @@ class SingleImage extends Component {
     }
 
     render(){
+        console.log('CHASE PROPS: ', this.props)
         console.log('LOOK HERE FOR RENDERING BUSINESS: ', this.state.imageId)
         console.log('IMAGE ID', this.state.imageId)
         return (
@@ -63,7 +66,7 @@ class SingleImage extends Component {
                     {this.props.reduxState.newTagToShow.map(picId => {
                         if(picId.id === this.state.imageId){
                             return(
-                                <li>{this.picId.tags}</li>
+                                <li>{JSON.stringify(this.props.reduxState.picId.name)}</li>
                             )
                         }
                     })}
