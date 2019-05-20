@@ -8,14 +8,15 @@ class SingleImage extends Component {
 
 
     state = {
-        tagId: this.props.image.id,
-        imageId: ''
+        tagId: '',
+        imageId: this.props.image.id
     }
 
     componentDidMount() {
-        this.setState({
-            imageId: this.props.image.id
-        })
+        // this.setState({
+        //     imageId: this.props.image.id
+        // })
+        this.props.dispatch({ type: 'SET_TAG_FOR_DISPLAY', payload: this.state });
         //this.getTheThing();
     }
 
@@ -26,7 +27,7 @@ class SingleImage extends Component {
     handleTagChange = (event) => {
 
         this.setState({
-            ...this.state,
+            // ...this.state,
             tagId: event.target.value,
             imageId: this.props.image.id
         })
@@ -62,18 +63,18 @@ class SingleImage extends Component {
                 })}
             </select>
             <Button onClick={this.handleSubmit} variant="contained" color="secondary"> Add My Feeling </Button>
-            <ul>
-                    {this.props.reduxState.newTagToShow.map(picId => {
-                        if(picId.id === this.state.imageId){
+            
+                    {this.props.tagsForImage.map((tagImageItem, i) => {
+                        if (tagImageItem.image_id === this.state.imageId){
                             return(
-                                <li>{JSON.stringify(this.props.reduxState.picId.name)}</li>
+                                <li key={i}>{tagImageItem.name}</li>
                             )
                         }
                     })}
-            </ul>
             
             
-            <li>{this.props.image.tags}</li>
+            
+            {/* <li>{this.props.image.tags}</li> */}
             </>
             
         )
@@ -83,7 +84,8 @@ class SingleImage extends Component {
 
 const mapStateToProps = (reduxState) => {
     return {
-        reduxState
+        reduxState,
+        tagsForImage: reduxState.newTagToShow
     }
 }
 

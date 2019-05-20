@@ -55,7 +55,7 @@ function* addTagSaga(action) {
 function* displayTagSaga(action) {
     console.log('YO YO YO', action.payload);
     try {
-        const displaysToRender = axios.get(`/api/imagetag?imageId=${action.payload.imageId}`)
+        const displaysToRender = yield axios.get(`/api/imagetag`)
         console.log('DISPLAYS TO RENDER BE HERE ', displaysToRender.data)
         yield put({
             type: 'NEW_TAG_TO_SHOW',
